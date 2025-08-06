@@ -1,4 +1,5 @@
 package educative.VendingMachine;
 
-public class ProductType {
+public enum ProductType {
+    CHOCOLATE, SNACK, BEVERAGE, OTHER
 }
