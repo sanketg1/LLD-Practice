@@ -14,22 +14,22 @@ public abstract class BankAccount {
     }
 
     public boolean withdraw(double amount){
-        if (amount>0 && availableBalance>amount && amount<getWithdrawlLimit()){
+        if (amount>0 && availableBalance>amount && amount<getWithdrawalLimit()){
             availableBalance-=amount;
             return true;
         }
         return false;
     }
 
-    public boolean Transfer( BankAccount toAccount, double amount){
-        if (amount>0 && availableBalance>amount && amount<getWithdrawlLimit()){
+    public boolean transfer( BankAccount toAccount, double amount){
+        if (amount>0 && availableBalance>amount && amount<getWithdrawalLimit()){
             availableBalance-=amount;
             toAccount.availableBalance+=amount;
             return true;
         }
         return false;
     }
-    public abstract double getWithdrawlLimit();
+    public abstract double getWithdrawalLimit();
 
     public int getAccountNumber() {
         return accountNumber;

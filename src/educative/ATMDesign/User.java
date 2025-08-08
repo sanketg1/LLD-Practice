@@ -1,16 +1,16 @@
 package educative.ATMDesign;
 
 public class User {
-    private ATMCard atmCard;
+    private ATMCard card;
     private BankAccount bankAccount;
 
     public User(ATMCard atmCard, BankAccount bankAccount) {
-        this.atmCard = atmCard;
+        this.card = atmCard;
         this.bankAccount = bankAccount;
     }
 
-    public ATMCard getAtmCard() {
-        return atmCard;
+    public ATMCard getCard() {
+        return card;
     }
 
     public BankAccount getBankAccount() {
