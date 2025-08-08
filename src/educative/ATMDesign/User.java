@@ -9,11 +9,11 @@ public class User {
         this.bankAccount = bankAccount;
     }
 
-    public ATMCard getAtmCard() {
+    public ATMCard getCard() {
         return atmCard;
     }
 
-    public BankAccount getBankAccount() {
+    public BankAccount getAccount() {
         return bankAccount;
     }
 }
