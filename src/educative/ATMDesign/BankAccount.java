@@ -21,7 +21,7 @@ public abstract class BankAccount {
         return false;
     }
 
-    public boolean Transfer( BankAccount toAccount, double amount){
+    public boolean transfer( BankAccount toAccount, double amount){
         if (amount>0 && availableBalance>amount && amount<getWithdrawlLimit()){
             availableBalance-=amount;
             toAccount.availableBalance+=amount;
