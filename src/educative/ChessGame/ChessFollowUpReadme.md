@@ -24,6 +24,62 @@
 
 ---
 
+### 💡 Handling Special Moves in Code
+
+- **Castling**:  
+  - Track whether the king and relevant rooks have moved (e.g., with boolean flags in the `King` and `Rook` classes or in the game state).
+  - When validating a castling move, ensure neither piece has moved, the squares between them are empty, and the king does not pass through or end up in check.
+  - Update both king and rook positions in a single atomic move.
+
+  ```java
+  // Example: Castling logic in ChessMoveController.java
+  if (move.isCastlingMove()) {
+      King king = (King) move.getPiece();
+      if (!king.hasMoved() && !rook.hasMoved() && board.isPathClear(king, rook) && !board.isKingInCheckPath(king, rook)) {
+          board.movePiece(king, castlingTargetBox);
+          board.movePiece(rook, rookTargetBox);
+          king.setHasMoved(true);
+          rook.setHasMoved(true);
+      }
+  }
+  ```
+
+- **En Passant**:  
+  - Record the last double-step pawn move (e.g., store the file and rank of the pawn eligible for en passant in the game state).
+  - Allow en passant capture only on the immediate next move.
+  - When performing en passant, remove the captured pawn from the board even though it is not on the destination square.
+
+  ```java
+  // Example: En Passant logic in ChessMoveController.java
+  if (move.isEnPassant()) {
+      Pawn pawn = (Pawn) move.getPiece();
+      int direction = pawn.isWhite() ? -1 : 1;
+      Box capturedPawnBox = board.getBox(move.getTo().getRow() + direction, move.getTo().getCol());
+      board.removePiece(capturedPawnBox);
+      board.movePiece(pawn, move.getTo());
+  }
+  // Track last double-step pawn move
+  if (move.getPiece() instanceof Pawn && Math.abs(move.getFrom().getRow() - move.getTo().getRow()) == 2) {
+      board.setEnPassantTarget(move.getTo());
+  }
+  ```
+
+- **Promotion**:  
+  - Detect when a pawn reaches the final rank.
+  - Prompt the player (via UI or input) to select a promotion piece (Queen, Rook, Bishop, Knight).
+  - Replace the pawn with the chosen piece in the board state.
+
+  ```java
+  // Example: Promotion logic in ChessMoveController.java
+  if (move.getPiece() instanceof Pawn && (move.getTo().getRow() == 0 || move.getTo().getRow() == 7)) {
+      // Assume player.choosePromotionPiece() returns a Piece instance (e.g., new Queen(pawn.isWhite()))
+      Piece promotedPiece = player.choosePromotionPiece();
+      board.setPiece(move.getTo(), promotedPiece);
+  }
+  ```
+
+---
+
 ## ✅ Move Validation & Game State Consistency
 
 - **🛡️ Rule Enforcement** – All moves go through a centralized move validator that checks legality based on piece rules, turn order, and check/checkmate status.
