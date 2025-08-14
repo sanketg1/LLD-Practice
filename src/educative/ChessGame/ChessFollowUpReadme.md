@@ -285,3 +285,19 @@ public class ChessGameView {
    - **Why:** Prevents conflicting game states and ensures a single source of truth for the game session.
 
 ---
+
+---
+## 🔑 Why Use UUID for IDs in the Chess Game Design?
+
+- **🌍 Uniqueness Across Systems**  
+  UUIDs (Universally Unique Identifiers) guarantee uniqueness without a central authority, making them ideal if the game state or moves might be shared or synchronized across distributed systems or multiple clients.
+
+- **🛡️ Collision Avoidance**  
+  Unlike simple integer IDs, UUIDs minimize the risk of collisions — especially important when multiple game instances or players generate IDs independently.
+
+- **📈 Scalability**  
+  UUIDs scale well as the system grows, such as when adding networked multiplayer or persistent game storage.
+
+- **🔒 Security**  
+  UUIDs are harder to guess or predict compared to sequential IDs, which can help prevent certain types of exploits or unauthorized actions.
+ 
